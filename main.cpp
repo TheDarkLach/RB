@@ -375,3 +375,49 @@ void PRINT(Node* root, Trunk *prev, bool isLeft)
   trunk -> str = (char*)("   |");
   PRINT(root->getRight(), trunk, false);
 }
+
+//parsing
+void parse(char* in, int* modif, int &count) 
+{
+  int l = 0;  //keeps track of # of chars before space
+  for (int i = 0; i < strlen(in); i++) 
+  {
+    if (in[i] == ' ') 
+    {
+      if (l == 1) 
+      {
+        int temp = 0;
+        temp = in[i-1] - '0';
+        modif[count] = temp;
+        count++;
+        l = 0;
+      } 
+      else 
+      {
+        int temp = 0;
+        for (int a = 0; a < l; a++) 
+        {
+          temp = 10 * temp + (in[i-l+a] - '0');
+        }
+        modif[count] = temp;
+        count++;
+        l = 0;
+      }
+    } 
+    else 
+    {
+      int temp = 0;
+      l++;
+      if (i == strlen(in) - 1) 
+      {  
+        //last possible pair of chars
+        for (int a = 0; a < l; a++) 
+        {
+            temp = 10 * temp + (in[i+a+1-l] - '0');
+        }
+        modif[count] = temp;
+        count++;
+      }
+    }
+  } 
+}
