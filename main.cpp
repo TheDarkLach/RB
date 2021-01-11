@@ -62,8 +62,6 @@ int main()
   bool run = true;
   while (run) 
   {
-    //cout << RED << "hello world" << RESET << endl;
-    //cout << BLUE << "YO" << RESET << endl;
     cout << endl << "You can: add, read, print, and quit." << endl;
     cin.get(input, 10);
     cin.clear();
@@ -114,11 +112,11 @@ void balance(Node* &head, Node* &curr)
   {
     parent = curr->getParent();
     grandparent = parent->getParent();
-    //Case A: parent = left child of grandparent
+    //Case 1: parent = left child of grandparent
     if (parent == grandparent->getLeft()) 
     {
       Node* uncle = grandparent->getRight();
-      //Case 1: uncle = red, then only recolor
+      //Case 1.1: uncle = red, then only recolor
       if (uncle != NULL && uncle->getColor() != 0) 
       {
         grandparent->setColor(1);//red
@@ -128,14 +126,14 @@ void balance(Node* &head, Node* &curr)
       }
       else 
       {
-        //Case 2: curr = right child of parent, then rotate left
+        //Case 1.2: curr = right child of parent, then rotate left
         if (curr == parent->getRight()) 
         {
         rotateLeft(head, parent);
         curr = parent;
         parent =  curr->getParent();
         }
-        //Case 3: curr - left child of parent, then rotate right
+        //Case 1.3: curr - left child of parent, then rotate right
         rotateRight(head, grandparent);
         //swap colors of parent and grandparent
         int tempC = parent->getColor();
@@ -144,11 +142,11 @@ void balance(Node* &head, Node* &curr)
         curr = parent;
       }
     }
-    //Case B: parent = right child of grandparent
+    //Case 2: parent = right child of grandparent
     else 
     {
       Node* uncle = grandparent->getLeft();
-      //Case 1: uncle = red, then onyl recolor
+      //Case 2.1: uncle = red, then onyl recolor
       if (uncle != NULL && uncle->getColor() != 0) 
       {
         grandparent->setColor(1);//red
@@ -158,14 +156,14 @@ void balance(Node* &head, Node* &curr)
       }
       else 
       {
-        //Case 2: curr = left child of parent, then rotate right
+        //Case 2.2: curr = left child of parent, then rotate right
         if (curr == parent->getLeft()) 
         {
         rotateRight(head, parent);
         curr = parent;
         parent = curr->getParent();
     	}
-        //Case 3: curr = right child of parent, then rotate left
+        //Case 2.3: curr = right child of parent, then rotate left
         rotateLeft(head, grandparent);
         //swap color of parent and grandparent
         int tempC = parent->getColor();
@@ -238,7 +236,7 @@ void ADD(Node* &head, Node* &curr, Node* &prev, int val) {
     head = new Node();
     curr = head;
     head->setData(val);
-    head->setColor(0);  //head is always black
+    head->setColor(0);  //head is always black/blue
     return;
   } 
   else 
@@ -296,6 +294,7 @@ void READ(Node* &head)
   memset(in, 0, 10000);
   memset(fileName, 0, 100);
   memset(modif, 0, 100);
+
   //read in file name
   cout << endl << "What is the name of the file?" << endl;
   cin.get(fileName, 30);
@@ -309,7 +308,7 @@ void READ(Node* &head)
     file.seekg(0, ios::beg);
     file.read(in, size);
     file.close();
-    parse(in, modif, count);  //parse input to modif array
+    parse(in, modif, count);  //parse input to modify array
     cout << "IN: ";
     for (int i = 0; i < 100; i++) 
     {
