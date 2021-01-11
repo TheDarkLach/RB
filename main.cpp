@@ -1,4 +1,5 @@
 /*red black tree insertion by faizan karim*/
+//no option to reset tree :/
 
 #include <iostream>
 #include <cstring>
@@ -7,7 +8,7 @@
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 //yea so black on black is not cool
-#define BLUE    "\033[0,36m"
+#define BLUE    "\033[36m"
 
 #include "node.h"
 
