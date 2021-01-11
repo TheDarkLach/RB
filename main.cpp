@@ -100,3 +100,78 @@ int main()
   }
   return 0;
 }
+
+//balancing
+//https://www.geeksforgeeks.org/c-program-red-black-tree-insertion/
+//that site usually sucks tho
+void balance(Node* &head, Node* &curr) 
+{
+  Node* parent = NULL;
+  Node* grandparent = NULL;
+  while ((curr != head) && (curr->getColor() != 0) && ((curr->getParent())->getColor() == 1)) 
+  {
+    parent = curr->getParent();
+    grandparent = parent->getParent();
+    //Case A: parent = left child of grandparent
+    if (parent == grandparent->getLeft()) 
+    {
+      Node* uncle = grandparent->getRight();
+      //Case 1: uncle = red, then only recolor
+      if (uncle != NULL && uncle->getColor() != 0) 
+      {
+        grandparent->setColor(1);//red
+        parent->setColor(0);//black
+        uncle->setColor(0);//black
+        curr = grandparent;
+      }
+      else 
+      {
+        //Case 2: curr = right child of parent, then rotate left
+        if (curr == parent->getRight()) 
+        {
+        rotateLeft(head, parent);
+        curr = parent;
+        parent =  curr->getParent();
+        }
+        //Case 3: curr - left child of parent, then rotate right
+        rotateRight(head, grandparent);
+        //swap colors of parent and grandparent
+        int tempC = parent->getColor();
+        parent->setColor(grandparent->getColor());
+        grandparent->setColor(tempC);
+        curr = parent;
+      }
+    }
+    //Case B: parent = right child of grandparent
+    else 
+    {
+      Node* uncle = grandparent->getLeft();
+      //Case 1: uncle = red, then onyl recolor
+      if (uncle != NULL && uncle->getColor() != 0) 
+      {
+        grandparent->setColor(1);//red
+        parent->setColor(0);//black
+        uncle->setColor(0);//black
+        curr = grandparent;
+      }
+      else 
+      {
+        //Case 2: curr = left child of parent, then rotate right
+        if (curr == parent->getLeft()) 
+        {
+        rotateRight(head, parent);
+        curr = parent;
+        parent = curr->getParent();
+    	}
+        //Case 3: curr = right child of parent, then rotate left
+        rotateLeft(head, grandparent);
+        //swap color of parent and grandparent
+        int tempC = parent->getColor();
+        parent->setColor(grandparent->getColor());
+        grandparent->setColor(tempC);
+        curr = parent;
+      }
+    }
+  }
+  head->setColor(0);
+}
