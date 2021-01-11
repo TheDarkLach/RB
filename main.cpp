@@ -50,5 +50,53 @@ void rotateRight(Node* &head, Node* &curr);
 
 int main()
 {
-
+    //variables
+  char input[10]; //user input
+  char read[10000];  //file input
+  int modif[100]; //parsed input for insertion
+  Node* head = NULL;
+  //program
+  cout << "Red Black Tree Insertiom" << endl;
+  bool run = true;
+  while (run) 
+  {
+    //cout << RED << "hello world" << RESET << endl;
+    //cout << BLUE << "YO" << RESET << endl;
+    cout << endl << "You can: add, read, print, and quit." << endl;
+    cin.get(input, 10);
+    cin.clear();
+    cin.ignore(10000, '\n');
+    if (strcmp(input, "add") == 0) 
+    {
+      int val;
+      cout << ">Add value: ";
+      cin >> val;
+      cin.clear();
+      cin.ignore(10000, '\n');
+      Node* curr = head;
+      Node* prev = NULL;
+      ADD(head, curr, prev, val);
+      if(curr != head) balance(head, curr);
+      cout << endl << val << " has been added:" << endl;
+    }
+    else if (strcmp(input, "read") == 0) 
+    {
+      //make sure arrays are clear
+      READ(head);
+    }
+    else if (strcmp(input, "print") == 0) 
+    {
+      PRINT(head, NULL, false);
+    }
+    else if (strcmp(input, "quit") == 0) 
+    {
+      cout << endl << "Quitting..." << endl;
+      run = false;
+    }
+    else 
+    {
+      cout << endl << "Invalid input. Try again." << endl;
+    }
+  }
+  return 0;
 }
