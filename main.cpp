@@ -9,7 +9,20 @@
 
 using namespace std;
 
+struct Trunk
+{
+    Trunk* prev;
+    char* str;
+
+    Trunk(Trunk* prev,char* str)
+    {
+        this->prev = prev;
+        this->str = str;
+    }
+
+};
+
 int main()
 {
-    
+
 }
