@@ -295,7 +295,7 @@ void READ(Node* &head)
   memset(fileName, 0, 100);
   memset(modif, 0, 100);
   //read in file name
-  cout << endl << "What is the name of the file?" << endl << ">> ";
+  cout << endl << "What is the name of the file?" << endl;
   cin.get(fileName, 30);
   cin.clear();
   cin.ignore(100000, '\n');
@@ -331,4 +331,47 @@ void READ(Node* &head)
       ADD(head, curr, prev, modif[i]);
     }
   } 
+}
+
+//print functions, similar to binary
+void PRINT(Node* root, Trunk *prev, bool isLeft) 
+{
+  if (root == NULL) 
+  {
+    return;
+  }
+  char* prev_str = (char*)("    ");
+  Trunk *trunk = new Trunk(prev, prev_str);
+  PRINT(root->getLeft(), trunk, true);
+  if (!prev) 
+  {
+    trunk -> str = (char*)("---");
+  }
+  else if (isLeft)
+   {
+    trunk -> str = (char*)(".---");
+    prev_str = (char*)("   |");
+  }
+  else 
+  {
+    trunk -> str = (char*)("`---");
+    prev -> str = prev_str;
+  }
+  showTrunks(trunk);
+  if (root->getColor() == 0)
+  {  
+    //black
+    cout << BLUE << root->getData() << RESET << endl;
+  } 
+  else 
+  {  
+    //red
+    cout << RED << root->getData() << RESET << endl;
+  }
+  if (prev) 
+  {
+    prev -> str = prev_str;
+  }
+  trunk -> str = (char*)("   |");
+  PRINT(root->getRight(), trunk, false);
 }
