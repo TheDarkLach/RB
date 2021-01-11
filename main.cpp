@@ -175,3 +175,57 @@ void balance(Node* &head, Node* &curr)
   }
   head->setColor(0);
 }
+
+void rotateLeft(Node* &head, Node* &curr) 
+{
+  Node* rightPtr = curr->getRight(); 
+  //
+  curr->setRight(rightPtr->getLeft()); 
+  if (curr->getRight() != NULL) 
+  {
+    (curr->getRight())->setParent(curr); 
+  }
+  rightPtr->setParent(curr->getParent());
+  //if working with head
+  if (curr->getParent() == NULL) 
+  {
+    head = rightPtr; 
+  } 
+  else if (curr == (curr->getParent())->getLeft()) 
+  {
+    (curr->getParent())->setLeft(rightPtr); 
+  } 
+  else
+  {
+    (curr->getParent())->setRight(rightPtr); 
+  }  
+  rightPtr->setLeft(curr); 
+  curr->setParent(rightPtr);
+}
+
+void rotateRight(Node* &head, Node* &curr) 
+{
+  Node *leftPtr = curr->getLeft(); 
+  //
+  curr->setLeft(leftPtr->getRight()); 
+  if (curr->getLeft() != NULL) 
+  {
+    (curr->getLeft())->setParent(curr); 
+  }  
+  leftPtr->setParent(curr->getParent());
+  //if working with head
+  if (curr->getParent() == NULL) 
+  {
+    head = leftPtr; 
+  }
+  else if (curr == (curr->getParent())->getLeft()) 
+  {
+    (curr->getParent())->setLeft(leftPtr); 
+  } 
+  else 
+  {
+    (curr->getParent())->setRight(leftPtr);
+  }
+  leftPtr->setRight(curr); 
+  curr->setParent(leftPtr);
+}
