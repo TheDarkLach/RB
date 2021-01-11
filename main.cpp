@@ -229,3 +229,56 @@ void rotateRight(Node* &head, Node* &curr)
   leftPtr->setRight(curr); 
   curr->setParent(leftPtr);
 }
+
+void ADD(Node* &head, Node* &curr, Node* &prev, int val) {
+  if (head == NULL) 
+  {
+    head = new Node();
+    curr = head;
+    head->setData(val);
+    head->setColor(0);  //head is always black
+    return;
+  } 
+  else 
+  {
+    if (val < curr->getData()) 
+    {  
+      //lower goes left
+      prev = curr;
+      curr = curr->getLeft();
+      if (curr == NULL) 
+      {  
+        //if empty then insert
+        curr = new Node();
+        curr->setData(val);
+        prev->setLeft(curr);
+        curr->setParent(prev);
+        balance(head, curr);  //balance tree
+        return;
+      } 
+      else 
+      {  //if !empty then keep going
+	    ADD(head, curr, prev, val);
+      }
+    }
+    else 
+    {
+      prev = curr;
+      curr = curr->getRight();
+        if (curr == NULL) 
+        {
+        //if empty then insert
+        curr = new Node();
+        curr->setData(val);
+        prev->setRight(curr);
+        curr->setParent(prev);
+        balance(head, curr);  //balance tree
+        return;
+      } 
+      else 
+      {  //if !empty then keep going
+	    ADD(head, curr, prev, val);
+      }
+    }
+  }
+}
