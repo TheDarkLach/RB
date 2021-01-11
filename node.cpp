@@ -10,7 +10,7 @@ Node::Node()
   data = 0;
   right = NULL;
   left = NULL;
-  color = 1; //intially red
+  color = 1; //start red
   parent = NULL;
 }
 
