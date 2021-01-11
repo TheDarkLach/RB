@@ -282,3 +282,53 @@ void ADD(Node* &head, Node* &curr, Node* &prev, int val) {
     }
   }
 }
+
+//Read from file
+void READ(Node* &head) 
+{
+  char in[10000];
+  char fileName[100];
+  int modif[100];
+  int siz = 0;
+  int count = 0;
+  memset(in, 0, 10000);
+  memset(fileName, 0, 100);
+  memset(modif, 0, 100);
+  //read in file name
+  cout << endl << "What is the name of the file?" << endl << ">> ";
+  cin.get(fileName, 30);
+  cin.clear();
+  cin.ignore(100000, '\n');
+  streampos size;
+  ifstream file(fileName, ios::in | ios::binary | ios::ate);
+  if (file.is_open()) 
+  {
+    size = file.tellg();
+    file.seekg(0, ios::beg);
+    file.read(in, size);
+    file.close();
+    parse(in, modif, count);  //parse input to modif array
+    cout << "IN: ";
+    for (int i = 0; i < 100; i++) 
+    {
+      if (modif[i] != 0) 
+      {
+        cout << modif[i] << " ";
+        siz++;
+      }
+    }
+    cout << endl << "Size: " << siz << endl;;
+    //add to tree
+    Node* curr = NULL;
+    Node* prev = NULL;
+    for (int i = 0; i < siz; i++) 
+    {
+      if(modif[i] == 0)
+      {
+        break;
+      } 
+      curr = head;
+      ADD(head, curr, prev, modif[i]);
+    }
+  } 
+}
