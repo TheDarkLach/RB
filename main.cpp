@@ -6,7 +6,8 @@
 //colors ucuz you cant have a red and black tree without colors
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
-#define BLUE    "\033[34m"
+//yea so black on black is not cool
+#define BLUE    "\033[0,36m"
 
 #include "node.h"
 
